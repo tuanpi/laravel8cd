@@ -1,14 +1,14 @@
 pipeline {
     agent any
-    environment {
-                DB_HOST = credentials("laravel-host1")
-                DB_DATABASE = credentials("laravel-database1")
-                DB_USERNAME = credentials("laravel-user1")
-                DB_PASSWORD = credentials("laravel-password1")
-            }
     stages {
         stage("Build") {
             steps {
+                environment {
+                    DB_HOST = credentials("laravel-host1")
+                    DB_DATABASE = credentials("laravel-database1")
+                    DB_USERNAME = credentials("laravel-user1")
+                    DB_PASSWORD = credentials("laravel-password1")
+                }
                 sh 'php --version'
                 //sh 'composer install'
                 sh 'composer --version'
@@ -19,11 +19,11 @@ pipeline {
                 sh 'echo $DB_PASSWORD'
                 
                 
-                //sh 'echo DB_HOST=${env.DB_HOST} >> .env'
-                //sh 'echo DB_USERNAME=${env.DB_USERNAME} >> .env'
-                //sh 'echo DB_DATABASE=${env.DB_DATABASE} >> .env'
-                //sh 'echo DB_PASSWORD=${env.DB_PASSWORD} >> .env'
-                //sh 'php artisan key:generate'
+                sh 'echo DB_HOST=${DB_HOST} >> .env'
+                sh 'echo DB_USERNAME=${DB_USERNAME} >> .env'
+                sh 'echo DB_DATABASE=${DB_DATABASE} >> .env'
+                sh 'echo DB_PASSWORD=${DB_PASSWORD} >> .env'
+                sh 'php artisan key:generate'
                 //sh 'cp .env .env.testing'
                 //sh 'php artisan migrate'
             }
