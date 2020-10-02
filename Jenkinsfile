@@ -2,13 +2,14 @@ pipeline {
     agent any
     stages {
         stage("Build") {
-            steps {
-                environment {
+            environment {
                     DB_HOST = credentials("laravel-host1")
                     DB_DATABASE = credentials("laravel-database1")
                     DB_USERNAME = credentials("laravel-user1")
                     DB_PASSWORD = credentials("laravel-password1")
                 }
+            steps {
+                
                 sh 'php --version'
                 //sh 'composer install'
                 sh 'composer --version'
